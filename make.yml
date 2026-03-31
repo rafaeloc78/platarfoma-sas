@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  wordpress:
+    image: wordpress:latest
+    environment:
+      - WORDPRESS_DB_HOST=database
+      - WORDPRESS_DB_USER=wordpressuser
+      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_DB_NAME=wordpressdb
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+
+  database:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=wordpressdb
+      - MYSQL_USER=wordpressuser
+      - MYSQL_PASSWORD=password
+    volumes:
+      - ./data:/var/lib/mysql
+
+  antigravity:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - wordpress

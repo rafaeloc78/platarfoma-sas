@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaSify - Tu Plataforma de Anuncios</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="blob shape-1"></div>
+    <div class="blob shape-2"></div>
+    <div class="blob shape-3"></div>
+
+    <!-- Barra de navegación -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-accent">SaaS</span>ify
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Inicio</a></li>
+                <li><a href="#anuncios-section">Anuncios</a></li>
+                <li><a href="#crear-section">Crear Anuncio</a></li>
+            </ul>
+            <div class="nav-actions" id="auth-actions">
+                <a href="#" class="login-btn" id="open-login-btn">Iniciar Sesión</a>
+                <button class="primary-btn" id="open-register-btn">Registrarse</button>
+            </div>
+            <div class="nav-actions" id="user-profile" style="display: none;">
+                <span id="user-greeting" style="font-weight: 600; color: var(--text-main);"></span>
+                <button class="secondary-btn" id="logout-btn" style="padding: 0.5rem 1rem;">Salir</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Sección de bienvenida -->
+        <section class="welcome hero-section" id="inicio">
+            <div class="hero-content">
+                <div class="badge">🚀 La plataforma #1 en anuncios</div>
+                <h1>Crea, gestiona y destaca tus <span class="gradient-text">anuncios</span> al instante.</h1>
+                <p>Descubre cómo publicar anuncios de manera inteligente, maximizar tu alcance y monitorear el desempeño desde un panel centralizado.</p>
+                <div class="hero-buttons">
+                    <button class="primary-btn large-btn" onclick="document.getElementById('formulario-creacion').scrollIntoView({behavior:'smooth'})">Publicar Anuncio</button>
+                    <button class="secondary-btn large-btn">Explorar Características</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de anuncios -->
+        <section class="anuncios glass-card" id="anuncios-section">
+            <div class="section-header">
+                <h2>Anuncios Destacados</h2>
+                <div class="filter-group">
+                    <input type="text" placeholder="Buscar anuncios..." class="search-input">
+                    <button class="icon-btn">🔍</button>
+                </div>
+            </div>
+            <ul id="lista-anuncios" class="anuncios-grid">
+                <!-- Se poblará por JS en scripts.js -->
+                <div class="loader">Generando resultados increíbles...</div>
+            </ul>
+        </section>
+
+        <!-- Formulario de creación de anuncio -->
+        <section class="creacion glass-card" id="crear-section">
+            <div class="form-wrapper">
+                <h2>Publica un nuevo anuncio</h2>
+                <p class="subtitle">Llega a miles de clientes en minutos.</p>
+                <form id="formulario-creacion" action="" method="post">
+                    <div class="input-group">
+                        <label for="titulo">Título del anuncio</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ej. Vendo Coche Deportivo 2024" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="descripcion">Descripción completa</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="Detalla las características de lo que ofreces..." rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="precio">Precio (USD) <span class="currency-icon">$</span></label>
+                        <div class="precio-wrapper">
+                            <input type="number" id="precio" name="precio" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn primary-btn full-width">Lanzar Anuncio 🚀</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modales de Autenticación -->
+    <div class="modal-overlay" id="auth-modal" style="display: none;">
+        <div class="modal-container glass-card">
+            <button class="modal-close" id="close-modal-btn">✕</button>
+            
+            <div id="login-view">
+                <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Bienvenido de nuevo</h2>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label>Usuario</label>
+                        <input type="text" name="username" placeholder="Tu usuario" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <p id="login-error" style="color: #ef4444; font-size: 0.9em; display: none; font-weight: 500;"></p>
+                    <button type="submit" class="submit-btn primary-btn full-width" style="margin-top: 1rem;">Acceder a mi cuenta</button>
+                </form>
+                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9em; color: var(--text-muted);">
+                    ¿No tienes cuenta? <a href="#" id="switch-to-register" style="color: var(--primary); font-weight: 600; text-decoration: none;">Regístrate aquí</a>
+                </p>
+            </div>
+
+            <div id="register-view" style="display: none;">
+                <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Crea tu cuenta</h2>
+                <form id="register-form">
+                    <div class="input-group">
+                        <label>Elige un Usuario</label>
+                        <input type="text" name="username" placeholder="Tu nuevo usuario" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <p id="register-error" style="color: #ef4444; font-size: 0.9em; display: none; font-weight: 500;"></p>
+                    <button type="submit" class="submit-btn primary-btn full-width" style="margin-top: 1rem;">Registrarme</button>
+                </form>
+                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9em; color: var(--text-muted);">
+                    ¿Ya tienes cuenta? <a href="#" id="switch-to-login" style="color: var(--primary); font-weight: 600; text-decoration: none;">Inicia Sesión</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Librerías y scripts -->
+    <script src="scripts.js"></script>
+</body>
+</html>
