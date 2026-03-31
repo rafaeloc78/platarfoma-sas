@@ -1,28 +1,11 @@
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+const sqlite3 = require('sqlite3').verbose();
+const { open } = require('sqlite');
 
-// Usamos el entorno para conectarnos (o fallback a los valores del make.yml)
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost', 
-    user: process.env.DB_USER || 'wordpressuser',
-    password: process.env.DB_PASSWORD || 'password',
-    database: process.env.DB_NAME || 'wordpressdb',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-async function checkConnection() {
-    try {
-        const connection = await pool.getConnection();
-        console.log('✅ Base de Datos conectada con éxito a MySQL.');
-        connection.release();
-    } catch (err) {
-        console.error('❌ Error conectando a MySQL:', err.message);
-        console.log('⚠️ Revisa que el contenedor de Docker u otro servidor MySQL local esté corriendo.');
-    }
+async function getDB() {
+    return open({
+        filename: './database.sqlite',
+        driver: sqlite3.Database
+    });
 }
 
-checkConnection();
-
-module.exports = pool;
+module.exports = getDB;
