@@ -171,6 +171,7 @@ async function loadAdminData() {
         const stats = await statsRes.json();
         document.getElementById('stat-users').textContent = stats.totalUsers;
         document.getElementById('stat-ads').textContent = stats.totalAds;
+        document.getElementById('stat-visits').textContent = stats.totalVisits;
 
         const usersRes = await fetch('/api/admin/users', { headers: { 'Authorization': `Bearer ${token}` }});
         const users = await usersRes.json();

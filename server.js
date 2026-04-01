@@ -12,6 +12,15 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.static('./'));
 
+// Middleware para contar cada visita a la Home
+const trackVisits = async (req, res, next) => {
+    if (req.method === 'GET' && (req.path === '/' || req.path === '/index.html')) {
+        try { await db.run('INSERT INTO visitas (timestamp) VALUES (CURRENT_TIMESTAMP)'); } catch(e){}
+    }
+    next();
+};
+app.use(trackVisits);
+
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_saas';
 
 // --- MIDDLEWARE AUTENTICACIÓN ---
@@ -55,10 +64,17 @@ async function initializeDB() {
             )
         `);
         
+        await db.exec(`
+            CREATE TABLE IF NOT EXISTS visitas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        
         // Auto-promoción de administradores de confianza
         await db.run("UPDATE users SET role = 'admin' WHERE username IN ('admin', 'tester_admin', 'rafaeloc78')");
         
-        console.log("✅ Tablas inicializadas y privilegios de admin asegurados.");
+        console.log("✅ Tablas inicializadas y tracking de visitas activo.");
     } catch (error) {
         console.error("❌ Error inicializando base de datos:", error.message);
     }
@@ -172,10 +188,12 @@ app.get('/api/admin/stats', authenticateToken, async (req, res) => {
         
         const userCount = await db.get('SELECT COUNT(*) as count FROM users');
         const adCount = await db.get('SELECT COUNT(*) as count FROM anuncios');
+        const visitCount = await db.get('SELECT COUNT(*) as count FROM visitas');
         
         res.json({
             totalUsers: userCount.count,
-            totalAds: adCount.count
+            totalAds: adCount.count,
+            totalVisits: visitCount.count
         });
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener estadísticas' });
