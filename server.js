@@ -96,7 +96,16 @@ app.post('/api/auth/login', async (req, res) => {
         const match = await bcrypt.compare(password, user.password);
         if (!match) return res.status(401).json({ error: 'Credenciales inválidas' });
 
-        const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, { expiresIn: '24h' });
+        // Forzar rol de admin para usuarios VIP si el entorno se reinicia
+        const adms = ['admin', 'tester_admin', 'rafaeloc78'];
+        let role = user.role;
+        if (adms.includes(user.username)) {
+            role = 'admin';
+            // Actualizar en DB por si acaso
+            await db.run('UPDATE users SET role = "admin" WHERE id = ?', [user.id]);
+        }
+
+        const token = jwt.sign({ id: user.id, username: user.username, role: role }, JWT_SECRET, { expiresIn: '24h' });
         
         res.json({ message: 'Login exitoso', token });
     } catch (error) {
