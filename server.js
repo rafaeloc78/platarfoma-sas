@@ -54,7 +54,11 @@ async function initializeDB() {
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
             )
         `);
-        console.log("✅ Tablas inicializadas en SQLite nativo.");
+        
+        // Auto-promoción de administradores de confianza
+        await db.run("UPDATE users SET role = 'admin' WHERE username IN ('admin', 'tester_admin', 'rafaeloc78')");
+        
+        console.log("✅ Tablas inicializadas y privilegios de admin asegurados.");
     } catch (error) {
         console.error("❌ Error inicializando base de datos:", error.message);
     }
