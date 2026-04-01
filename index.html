@@ -43,6 +43,7 @@
             </div>
             <div class="nav-actions" id="user-profile" style="display: none;">
                 <span id="user-greeting" style="font-weight: 600; color: var(--text-main);"></span>
+                <button class="icon-btn" id="admin-btn" style="display: none; background: rgba(255,165,0,0.2); border: 1px solid orange; color: orange; cursor: pointer;" title="Panel Admin">⚙️</button>
                 <button class="secondary-btn" id="logout-btn" style="padding: 0.5rem 1rem;">Salir</button>
             </div>
         </div>
@@ -147,6 +148,44 @@
                 <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9em; color: var(--text-muted);">
                     ¿Ya tienes cuenta? <a href="#" id="switch-to-login" style="color: var(--primary); font-weight: 600; text-decoration: none;">Inicia Sesión</a>
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Administración (Oculto por defecto) -->
+    <div class="modal-overlay" id="admin-modal" style="display: none;">
+        <div class="modal-container glass-card" style="max-width: 800px;">
+            <button class="modal-close" id="close-admin-btn">✕</button>
+            <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Panel de Supervisión</h2>
+            
+            <div class="admin-stats" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                <div class="stat-card" style="flex: 1; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 12px; text-align: center;">
+                    <h3 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Usuarios Totales</h3>
+                    <p id="stat-users" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</p>
+                </div>
+                <div class="stat-card" style="flex: 1; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 12px; text-align: center;">
+                    <h3 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Anuncios Activos</h3>
+                    <p id="stat-ads" style="font-size: 2rem; font-weight: 800; color: var(--accent);">0</p>
+                </div>
+            </div>
+
+            <div class="admin-user-list">
+                <h3 style="margin-bottom: 1rem;">Registro de Usuarios</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px;">
+                        <thead>
+                            <tr style="text-align: left; background: #f8fafc;">
+                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">ID</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Usuario</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Rol</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-tbody">
+                            <!-- Se poblará por JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

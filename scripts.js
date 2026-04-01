@@ -131,15 +131,63 @@ document.getElementById('switch-to-login').addEventListener('click', (e) => { e.
 const checkAuthState = () => {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
+    const adminBtn = document.getElementById('admin-btn');
+    
     if (token && username) {
         document.getElementById('auth-actions').style.display = 'none';
         document.getElementById('user-profile').style.display = 'flex';
         document.getElementById('user-greeting').innerText = `¡Hola, ${username}!`;
+        
+        // Decodificar JWT para ver si es admin
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            if (payload.role === 'admin') {
+                adminBtn.style.display = 'inline-block';
+            } else {
+                adminBtn.style.display = 'none';
+            }
+        } catch(e) { adminBtn.style.display = 'none'; }
     } else {
         document.getElementById('auth-actions').style.display = 'flex';
         document.getElementById('user-profile').style.display = 'none';
+        if(adminBtn) adminBtn.style.display = 'none';
     }
 };
+
+// Panel Admin Events
+document.getElementById('admin-btn').addEventListener('click', () => {
+    document.getElementById('admin-modal').style.display = 'flex';
+    loadAdminData();
+});
+document.getElementById('close-admin-btn').addEventListener('click', () => {
+    document.getElementById('admin-modal').style.display = 'none';
+});
+
+async function loadAdminData() {
+    const token = localStorage.getItem('token');
+    const tbody = document.getElementById('admin-users-tbody');
+    try {
+        const statsRes = await fetch('/api/admin/stats', { headers: { 'Authorization': `Bearer ${token}` }});
+        const stats = await statsRes.json();
+        document.getElementById('stat-users').textContent = stats.totalUsers;
+        document.getElementById('stat-ads').textContent = stats.totalAds;
+
+        const usersRes = await fetch('/api/admin/users', { headers: { 'Authorization': `Bearer ${token}` }});
+        const users = await usersRes.json();
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">${u.id}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${u.username}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                    <span style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; background: ${u.role === 'admin' ? '#fee2e2; color: #991b1b' : '#f0f9ff; color: #075985'}">
+                        ${u.role.toUpperCase()}
+                    </span>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid #e2e8f0; color: #64748b;">${new Date(u.created_at).toLocaleDateString()}</td>
+            </tr>
+        `).join('');
+    } catch (e) { console.error(e); }
+}
 
 document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('token');

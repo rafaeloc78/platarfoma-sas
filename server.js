@@ -137,6 +137,53 @@ app.post('/anuncios', authenticateToken, async (req, res) => {
     }
 });
 
+// --- RUTAS DE ADMINISTRACIÓN (SUPERVISIÓN) ---
+
+// Obtener lista de usuarios (Solo Admin)
+app.get('/api/admin/users', authenticateToken, async (req, res) => {
+    try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ error: 'Acceso restringido. Solo administradores.' });
+        }
+        const users = await db.all('SELECT id, username, role, created_at FROM users ORDER BY created_at DESC');
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener usuarios' });
+    }
+});
+
+// Obtener estadísticas rápidas
+app.get('/api/admin/stats', authenticateToken, async (req, res) => {
+    try {
+        if (req.user.role !== 'admin') return res.status(403).json({ error: 'No autorizado' });
+        
+        const userCount = await db.get('SELECT COUNT(*) as count FROM users');
+        const adCount = await db.get('SELECT COUNT(*) as count FROM anuncios');
+        
+        res.json({
+            totalUsers: userCount.count,
+            totalAds: adCount.count
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener estadísticas' });
+    }
+});
+
+// Promocionar a Admin (Ruta de utilidad interna)
+app.post('/api/admin/promote', authenticateToken, async (req, res) => {
+    try {
+        const { username } = req.body;
+        // Solo el admin original o el primer usuario puede promocionar
+        if (req.user.role !== 'admin' && req.user.username !== 'admin') {
+            return res.status(403).json({ error: 'Solo el administrador raíz puede hacer esto.' });
+        }
+        await db.run('UPDATE users SET role = "admin" WHERE username = ?', [username]);
+        res.json({ message: `Usuario ${username} promocionado a Administrador.` });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al promocionar usuario' });
+    }
+});
+
 app.listen(port, () => {
     console.log(`🚀 Servidor backend corriendo en el puerto ${port}`);
 });
