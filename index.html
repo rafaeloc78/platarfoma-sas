@@ -3,205 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rocvisual - Tu Plataforma de Anuncios Inteligente</title>
-    <!-- SEO & Social Media (Open Graph) -->
-    <meta name="description" content="Crea, gestiona y destaca tus anuncios con la estética más premium del mercado. Rocvisual eleva tu negocio al siguiente nivel.">
-    <meta property="og:title" content="Rocvisual - Inteligencia en tus Anuncios">
-    <meta property="og:description" content="Publica anuncios con diseño Glassmorphism y tecnología de punta. Gestiona todo desde un solo panel.">
-    <meta property="og:image" content="https://www.rocvisual.es/rocvisual_social_cover.png">
-    <meta property="og:url" content="https://www.rocvisual.es">
-    <meta property="og:type" content="website">
-    <meta name="twitter:description" content="Diseño premium para tus anuncios comerciales.">
-    
-    <!-- Google Analytics (Placeholder para configuración futura) -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>ROC VISUAL | ASCENDANCE CORE PRO</title>
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Portal inmobiliario de lujo por Roc Visual. Encuentra las mejores propiedades con tecnología IA.">
+    <meta name="keywords" content="inmobiliaria, lujo, roc visual, ascendance, real estate, ia">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f7ff;
+            --secondary: #6366f1;
+            --accent: #ff007a;
+            --bg: #030510;
+            --card-bg: rgba(16, 20, 40, 0.7);
+            --text: #e6f1ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% -20%, #1e293b 0%, transparent 50%);
+        }
+
+        /* Hero & Header */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(3, 5, 16, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* Navigation / Social bars */
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .btn-social {
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-fb { background: #1877f2; }
+        .btn-wa { background: #25d366; }
+        .btn-social:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+        /* Listing Controls */
+        .controls {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            backdrop-filter: blur(20px);
+        }
+
+        input, select, textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: white;
+            transition: border 0.3s;
+        }
+
+        input:focus { border-color: var(--primary); outline: none; }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* Grid */
+        #list {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: brightness(0.8);
+            transition: 0.5s;
+        }
+
+        .card:hover img { filter: brightness(1.1); }
+
+        .card-body { padding: 20px; }
+
+        .card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .location { font-size: 0.8rem; color: #8892b0; display: flex; align-items: center; gap: 5px; margin-bottom: 12px; }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.6);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(16, 20, 40, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.3s;
+        }
+
+        .fav-btn.active { color: #ffcc00; background: white; }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 100px;
+            opacity: 0.4;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="blob shape-1"></div>
-    <div class="blob shape-2"></div>
-    <div class="blob shape-3"></div>
 
-    <!-- Barra de navegación -->
-    <nav class="glass-nav">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-accent">SaaS</span>ify
-            </div>
-            <ul class="nav-links">
-                <li><a href="#" class="active">Inicio</a></li>
-                <li><a href="#anuncios-section">Anuncios</a></li>
-                <li><a href="#crear-section">Crear Anuncio</a></li>
-            </ul>
-            <div class="nav-actions" id="auth-actions">
-                <a href="#" class="login-btn" id="open-login-btn">Iniciar Sesión</a>
-                <button class="primary-btn" id="open-register-btn">Registrarse</button>
-            </div>
-            <div class="nav-actions" id="user-profile" style="display: none;">
-                <span id="user-greeting" style="font-weight: 600; color: var(--text-main);"></span>
-                <button class="icon-btn" id="admin-btn" style="display: none; background: rgba(255,165,0,0.2); border: 1px solid orange; color: orange; cursor: pointer;" title="Panel Admin">⚙️</button>
-                <button class="secondary-btn" id="logout-btn" style="padding: 0.5rem 1rem;">Salir</button>
-            </div>
-        </div>
-    </nav>
+<header>
+    <h1>ROC VISUAL</h1>
+    <div class="subtitle">Ascendance Core Pro | Luxury Real Estate</div>
+    
+    <div class="top-bar">
+        <a href="https://www.facebook.com/rafael.oltracreu.5" class="btn-social btn-fb" target="_blank">Facebook</a>
+        <a href="https://wa.me/34687588143" class="btn-social btn-wa" target="_blank">WhatsApp</a>
+    </div>
+</header>
 
-    <main>
-        <!-- Sección de bienvenida -->
-        <section class="welcome hero-section" id="inicio">
-            <div class="hero-content">
-                <div class="badge">🚀 La plataforma #1 en anuncios</div>
-                <h1>Crea, gestiona y destaca tus <span class="gradient-text">anuncios</span> al instante.</h1>
-                <p>Descubre cómo publicar anuncios de manera inteligente, maximizar tu alcance y monitorear el desempeño desde un panel centralizado.</p>
-                <div class="hero-buttons">
-                    <button class="primary-btn large-btn" onclick="document.getElementById('formulario-creacion').scrollIntoView({behavior:'smooth'})">Publicar Anuncio</button>
-                    <button class="secondary-btn large-btn">Explorar Características</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección de anuncios -->
-        <section class="anuncios glass-card" id="anuncios-section">
-            <div class="section-header">
-                <h2>Anuncios Destacados</h2>
-                <div class="filter-group">
-                    <input type="text" placeholder="Buscar anuncios..." class="search-input">
-                    <button class="icon-btn">🔍</button>
-                </div>
-            </div>
-            <ul id="lista-anuncios" class="anuncios-grid">
-                <!-- Se poblará por JS en scripts.js -->
-                <div class="loader">Generando resultados increíbles...</div>
-            </ul>
-        </section>
-
-        <!-- Formulario de creación de anuncio -->
-        <section class="creacion glass-card" id="crear-section">
-            <div class="form-wrapper">
-                <h2>Publica un nuevo anuncio</h2>
-                <p class="subtitle">Llega a miles de clientes en minutos.</p>
-                <form id="formulario-creacion" action="" method="post">
-                    <div class="input-group">
-                        <label for="titulo">Título del anuncio</label>
-                        <input type="text" id="titulo" name="titulo" placeholder="Ej. Vendo Coche Deportivo 2024" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="descripcion">Descripción completa</label>
-                        <textarea id="descripcion" name="descripcion" placeholder="Detalla las características de lo que ofreces..." rows="4" required></textarea>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="precio">Precio (USD) <span class="currency-icon">$</span></label>
-                        <div class="precio-wrapper">
-                            <input type="number" id="precio" name="precio" placeholder="0.00" min="0" step="0.01" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn primary-btn full-width">Lanzar Anuncio 🚀</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modales de Autenticación -->
-    <div class="modal-overlay" id="auth-modal" style="display: none;">
-        <div class="modal-container glass-card">
-            <button class="modal-close" id="close-modal-btn">✕</button>
-            
-            <div id="login-view">
-                <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Bienvenido de nuevo</h2>
-                <form id="login-form">
-                    <div class="input-group">
-                        <label>Usuario</label>
-                        <input type="text" name="username" placeholder="Tu usuario" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Contraseña</label>
-                        <input type="password" name="password" placeholder="••••••••" required>
-                    </div>
-                    <p id="login-error" style="color: #ef4444; font-size: 0.9em; display: none; font-weight: 500;"></p>
-                    <button type="submit" class="submit-btn primary-btn full-width" style="margin-top: 1rem;">Acceder a mi cuenta</button>
-                </form>
-                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9em; color: var(--text-muted);">
-                    ¿No tienes cuenta? <a href="#" id="switch-to-register" style="color: var(--primary); font-weight: 600; text-decoration: none;">Regístrate aquí</a>
-                </p>
-            </div>
-
-            <div id="register-view" style="display: none;">
-                <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Crea tu cuenta</h2>
-                <form id="register-form">
-                    <div class="input-group">
-                        <label>Elige un Usuario</label>
-                        <input type="text" name="username" placeholder="Tu nuevo usuario" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Contraseña</label>
-                        <input type="password" name="password" placeholder="••••••••" required>
-                    </div>
-                    <p id="register-error" style="color: #ef4444; font-size: 0.9em; display: none; font-weight: 500;"></p>
-                    <button type="submit" class="submit-btn primary-btn full-width" style="margin-top: 1rem;">Registrarme</button>
-                </form>
-                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9em; color: var(--text-muted);">
-                    ¿Ya tienes cuenta? <a href="#" id="switch-to-login" style="color: var(--primary); font-weight: 600; text-decoration: none;">Inicia Sesión</a>
-                </p>
-            </div>
-        </div>
+<div class="container">
+    
+    <!-- CONTROLES -->
+    <div class="controls">
+        <select id="typeFilter">
+            <option value="">Todas las Operaciones</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
+        </select>
+        <input type="number" id="maxPrice" placeholder="Presupuesto Máx €">
+        <button class="btn-action" onclick="render()">Filtrar Catálogo</button>
+        <button class="btn-action" style="background: rgba(255,255,255,0.1);" onclick="toggleFavView()">Mis Favoritos</button>
     </div>
 
-    <!-- Panel de Administración (Oculto por defecto) -->
-    <div class="modal-overlay" id="admin-modal" style="display: none;">
-        <div class="modal-container glass-card" style="max-width: 800px;">
-            <button class="modal-close" id="close-admin-btn">✕</button>
-            <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; color: var(--dark);">Panel de Supervisión</h2>
-            
-            <div class="admin-stats" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                <div class="stat-card" style="flex: 1; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 12px; text-align: center;">
-                    <h3 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Usuarios Totales</h3>
-                    <p id="stat-users" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</p>
-                </div>
-                <div class="stat-card" style="flex: 1; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 12px; text-align: center;">
-                    <h3 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Anuncios Activos</h3>
-                    <p id="stat-ads" style="font-size: 2rem; font-weight: 800; color: var(--accent);">0</p>
-                </div>
-                <div class="stat-card" style="flex: 1; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 12px; text-align: center;">
-                    <h3 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted);">Visitas Totales</h3>
-                    <p id="stat-visits" style="font-size: 2rem; font-weight: 800; color: #10B981;">0</p>
-                </div>
-            </div>
-
-            <div class="admin-user-list">
-                <h3 style="margin-bottom: 1rem;">Registro de Usuarios</h3>
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px;">
-                        <thead>
-                            <tr style="text-align: left; background: #f8fafc;">
-                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">ID</th>
-                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Usuario</th>
-                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Rol</th>
-                                <th style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-users-tbody">
-                            <!-- Se poblará por JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <!-- FORMULARIO DE ALTA (Simulado para Admin) -->
+    <div class="controls" style="margin-top: 10px; background: rgba(0, 247, 255, 0.03);">
+        <input id="title" placeholder="Título Propiedad">
+        <input id="price" type="number" placeholder="Precio €">
+        <input id="location" placeholder="Ubicación">
+        <select id="type">
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
+        </select>
+        <input id="image" placeholder="URL Foto (HD)">
+        <textarea id="desc" placeholder="Descripción detallada..."></textarea>
+        <button class="btn-action" onclick="addProperty()">Publicar Activo</button>
     </div>
 
-    <!-- Librerías y scripts -->
-    <script src="scripts.js"></script>
+    <!-- LISTADO DINAMICO -->
+    <div id="list"></div>
+
+</div>
+
+<footer>
+    © 2026 ROC AGENT AGENCY | Rafael Oltra - Todos los derechos reservados.<br>
+    Sincronizado con Motor Roc y KITT.
+</footer>
+
+<script>
+    // DATA MOCK (Inicial)
+    let data = JSON.parse(localStorage.getItem('roc_properties')) || [
+        {id:1, title:"Ático Premium", type:"venta", price:450000, location:"Barcelona, Diagonal", desc:"Vistas 360 y acabados de lujo.", image:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"},
+        {id:2, title:"Villa Futurista", type:"venta", price:1200000, location:"Marbella", desc:"Piscina infinity y domótica total.", image:"https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"},
+        {id:3, title:"Loft Industrial", type:"alquiler", price:2200, location:"Madrid, Malasaña", desc:"Ideal para nómadas digitales del sector Tech.", image:"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"}
+    ];
+
+    let favs = JSON.parse(localStorage.getItem('roc_favs')) || [];
+    let showFavs = false;
+
+    function save() {
+        localStorage.setItem('roc_properties', JSON.stringify(data));
+    }
+
+    function render() {
+        const typeF = document.getElementById('typeFilter').value;
+        const priceF = document.getElementById('maxPrice').value;
+        const container = document.getElementById('list');
+
+        let filtered = data.filter(p => 
+            (!typeF || p.type === typeF) && 
+            (!priceF || p.price <= priceF)
+        );
+
+        if (showFavs) filtered = filtered.filter(p => favs.includes(p.id));
+
+        container.innerHTML = filtered.map(p => `
+            <div class="card">
+                <div class="badge">${p.type}</div>
+                <div class="fav-btn ${favs.includes(p.id) ? 'active' : ''}" onclick="toggleFav(${p.id})">★</div>
+                <img src="${p.image}" alt="${p.title}">
+                <div class="card-body">
+                    <div class="price-tag">${p.price.toLocaleString()} €</div>
+                    <h3>${p.title}</h3>
+                    <div class="location">📍 ${p.location}</div>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">${p.desc}</p>
+                    <button class="btn-action" style="margin-top: 15px; width: 100%;" onclick="window.open('https://wa.me/34687588143?text=Interesado en ${p.title}')">Solicitar Información</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function addProperty() {
+        if(!title.value || !price.value) return alert("Por favor, rellena los campos principales.");
+        const newP = {
+            id: Date.now(),
+            title: title.value,
+            price: Number(price.value),
+            type: type.value,
+            location: location.value || "Ubicación reservada",
+            image: image.value || "https://via.placeholder.com/800x600/101428/00f7ff?text=Roc+Visual+Assets",
+            desc: desc.value || "Sin descripción disponible."
+        };
+        data.push(newP);
+        save();
+        render();
+        // Limpiar
+        title.value = ""; price.value = ""; location.value = ""; desc.value = "";
+    }
+
+    function toggleFav(id) {
+        favs = favs.includes(id) ? favs.filter(i => i !== id) : [...favs, id];
+        localStorage.setItem('roc_favs', JSON.stringify(favs));
+        render();
+    }
+
+    function toggleFavView() {
+        showFavs = !showFavs;
+        render();
+    }
+
+    render();
+</script>
 </body>
 </html>
